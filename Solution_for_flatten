@@ -1,0 +1,38 @@
+#Given a nested list with arbitrary level of nesting, write a function, flatten to flatten it.
+
+#sample input:
+x = [[4,5],[[1,2,3]],6]
+
+#flatten(x) --> [4,5,1,2,3,6]
+def solution_for_flatten_list(input_list:list) -> list[int]:
+    # this checks if a sublist is already flattened
+    def isFlattened(lst):
+        
+        for item in lst:
+            if type(item) is list:
+                return False
+        return True
+    
+    # this appends the integers of a flattened sublist to the result list 
+    def appendInteger(lst,result):
+        for item in lst:
+            result.append(item)
+        return
+    
+    # this is to be called recursively
+    def flatten(lst,result):
+        if type(lst) is int:
+            result.append(lst)
+            return
+        elif isFlattened(lst):
+            appendInteger(lst, result)
+            return
+        for item in lst:
+            flatten(item,result)
+        return 
+    
+    # this is the main function
+    result=[]
+    flatten(x,result)
+    #print(result)
+    return result
